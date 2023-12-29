@@ -10,45 +10,103 @@ class ScheduleBottomSheet extends StatefulWidget {
 }
 
 class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
+  int? startTime;
+  int? endTime;
+  String? content;
+  final GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     final bottomInset = MediaQuery.of(context).viewInsets.bottom; //키보드 높이
-    return SafeArea(
-      child: Container(
-          height: MediaQuery.of(context).size.height / 2 + bottomInset,
-          color: Colors.white,
-          child: Padding(
-            padding:
-                EdgeInsets.only(left: 8, right: 8, top: 8, bottom: bottomInset),
-            child: Column(
-              children: [
-                const Row(
-                  children: [
-                    Expanded(
-                        child:
-                            CustomTextField(label: '시작 시간', isAboutTime: true)),
-                    SizedBox(width: 16),
-                    Expanded(
-                        child:
-                            CustomTextField(label: '종료 시간', isAboutTime: true)),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                const Expanded(
-                    child: CustomTextField(label: '내용', isAboutTime: false)),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: onSave,
-                    style: ElevatedButton.styleFrom(backgroundColor: PRIMARY),
-                    child: const Text('저장'),
+    return Form(
+      key: formKey,
+      child: SafeArea(
+        child: Container(
+            height: MediaQuery.of(context).size.height / 2 + bottomInset,
+            color: Colors.white,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: 8, right: 8, top: 8, bottom: bottomInset),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                          child: CustomTextField(
+                        label: '시작 시간',
+                        isAboutTime: true,
+                        onSaved: (String? val) {
+                          startTime = int.parse(val!);
+                        },
+                        validator: timeValidator,
+                      )),
+                      const SizedBox(width: 16),
+                      Expanded(
+                          child: CustomTextField(
+                        label: '종료 시간',
+                        isAboutTime: true,
+                        onSaved: (val) {
+                          endTime = int.parse(val!);
+                        },
+                        validator: timeValidator,
+                      )),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          )),
+                  const SizedBox(height: 8),
+                  Expanded(
+                      child: CustomTextField(
+                    label: '내용',
+                    isAboutTime: false,
+                    onSaved: (val) {
+                      content = val;
+                    },
+                    validator: contentValidator,
+                  )),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: onSave,
+                      style: ElevatedButton.styleFrom(backgroundColor: PRIMARY),
+                      child: const Text('저장'),
+                    ),
+                  ),
+                ],
+              ),
+            )),
+      ),
     );
   }
 
-  void onSave() {}
+  void onSave() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+
+      print(startTime);
+      print(endTime);
+      print(content);
+    }
+  }
+
+  String? timeValidator(String? val) {
+    if (val == null) {
+      return '값을 입력해주세요.';
+    }
+    int? number;
+    try {
+      number = int.parse(val);
+    } catch (e) {
+      return '숫자를 입력해 주세요.';
+    }
+
+    if (number < 0 || number > 24) {
+      return '0시부터 24시 사이를 입력해 주세요';
+    }
+    return null;
+  }
+
+  String? contentValidator(String? val) {
+    if (val == null || val.isEmpty) {
+      return '값을 입력해 주세요';
+    }
+    return null;
+  }
 }
