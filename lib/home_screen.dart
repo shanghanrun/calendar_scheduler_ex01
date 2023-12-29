@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('스케줄 관리')),
       floatingActionButton: FloatingActionButton(
         backgroundColor: PRIMARY,
         child: const Icon(Icons.add),
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
           showModalBottomSheet(
             context: context,
             isDismissible: true,
+            isScrollControlled: true,
             builder: (_) => const ScheduleBottomSheet(),
           );
         },

@@ -12,6 +12,7 @@ class MainCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
+      locale: 'ko_kr', // 'ko_kr'
       onDaySelected: onDaySelected,
       selectedDayPredicate: (date) {
         return (date.year == selectedDate.year &&
