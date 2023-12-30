@@ -1,0 +1,12 @@
+github.com/codefactory-co/golden-rabbit-flutter-novice
+
+여기서 ch18의
+calendar_scheduler_server 폴더를 받아야 된다.
+
+그냥 루트폴더로 이동해서 
+git clone github.com/codefactory-co/golden-rabbit-flutter-novice 한다.
+그리고 vscode로 ch18 폴더 아래에 있는 calendar_scheduler_server폴더를 연다.
+
+그러고서 npm install 해서 초기화 한다.
+그리고 npm run start:dev를 실행하면, package.json에 있는 파일대로 디펜던시가 다운로드되면서, 서버가 실행된다.
+
