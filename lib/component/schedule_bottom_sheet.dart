@@ -1,9 +1,13 @@
 import 'package:calendar_scheduler_ex01/component/custom_textfield.dart';
 import 'package:calendar_scheduler_ex01/const/colors.dart';
+import 'package:calendar_scheduler_ex01/database/drift_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:drift/drift.dart' hide Column;
 
 class ScheduleBottomSheet extends StatefulWidget {
-  const ScheduleBottomSheet({super.key});
+  final DateTime selectedDate;
+  const ScheduleBottomSheet({required this.selectedDate, super.key});
 
   @override
   State<ScheduleBottomSheet> createState() => _ScheduleBottomSheetState();
@@ -76,13 +80,21 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
     );
   }
 
-  void onSave() {
+  void onSave() async {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
       print(startTime);
       print(endTime);
       print(content);
+
+      await GetIt.I<LocalDatabase>().createSchedule(SchedulesCompanion(
+        startTime: Value(startTime!),
+        endTime: Value(endTime!),
+        content: Value(content!),
+        date: Value(widget.selectedDate),
+      ));
+      Navigator.of(context).pop(); // 현재페이지 닫기 = 뒤로가기
     }
   }
 
