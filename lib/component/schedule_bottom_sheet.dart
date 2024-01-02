@@ -1,9 +1,12 @@
 import 'package:calendar_scheduler_ex01/component/custom_textfield.dart';
 import 'package:calendar_scheduler_ex01/const/colors.dart';
 import 'package:calendar_scheduler_ex01/database/drift_database.dart';
+import 'package:calendar_scheduler_ex01/model/schedule_model.dart';
+import 'package:calendar_scheduler_ex01/provider/schedule_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:drift/drift.dart' hide Column;
+import 'package:provider/provider.dart';
 
 class ScheduleBottomSheet extends StatefulWidget {
   final DateTime selectedDate;
@@ -68,7 +71,7 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: onSave,
+                      onPressed: () => onSave(context),
                       style: ElevatedButton.styleFrom(backgroundColor: PRIMARY),
                       child: const Text('저장'),
                     ),
@@ -80,7 +83,7 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
     );
   }
 
-  void onSave() async {
+  void onSave(BuildContext context) {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
@@ -88,12 +91,14 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
       print(endTime);
       print(content);
 
-      await GetIt.I<LocalDatabase>().createSchedule(SchedulesCompanion(
-        startTime: Value(startTime!),
-        endTime: Value(endTime!),
-        content: Value(content!),
-        date: Value(widget.selectedDate),
-      ));
+      context.read<ScheduleProvider>().createSchedule(
+              schedule: ScheduleModel(
+            id: 'new_model', // 임시 id
+            startTime: startTime!,
+            endTime: endTime!,
+            content: content!,
+            date: widget.selectedDate,
+          ));
       Navigator.of(context).pop(); // 현재페이지 닫기 = 뒤로가기
     }
   }
