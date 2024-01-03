@@ -1,12 +1,14 @@
 import 'package:calendar_scheduler_ex01/component/custom_textfield.dart';
 import 'package:calendar_scheduler_ex01/const/colors.dart';
-import 'package:calendar_scheduler_ex01/database/drift_database.dart';
+// import 'package:calendar_scheduler_ex01/database/drift_database.dart';
 import 'package:calendar_scheduler_ex01/model/schedule_model.dart';
-import 'package:calendar_scheduler_ex01/provider/schedule_provider.dart';
+// import 'package:calendar_scheduler_ex01/provider/schedule_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:drift/drift.dart' hide Column;
-import 'package:provider/provider.dart';
+// import 'package:get_it/get_it.dart';
+// import 'package:drift/drift.dart' hide Column;
+// import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ScheduleBottomSheet extends StatefulWidget {
   final DateTime selectedDate;
@@ -83,7 +85,7 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
     );
   }
 
-  void onSave(BuildContext context) {
+  void onSave(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
@@ -91,14 +93,26 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
       print(endTime);
       print(content);
 
-      context.read<ScheduleProvider>().createSchedule(
-              schedule: ScheduleModel(
-            id: 'new_model', // 임시 id
-            startTime: startTime!,
-            endTime: endTime!,
-            content: content!,
-            date: widget.selectedDate,
-          ));
+      final schedule = ScheduleModel(
+        id: const Uuid().v4(),
+        content: content!,
+        date: widget.selectedDate,
+        startTime: startTime!,
+        endTime: endTime!,
+      );
+
+      await FirebaseFirestore.instance
+          .collection('schedule')
+          .doc(schedule.id)
+          .set(schedule.toJson());
+      // context.read<ScheduleProvider>().createSchedule(
+      //         schedule: ScheduleModel(
+      //       id: 'new_model', // 임시 id
+      //       startTime: startTime!,
+      //       endTime: endTime!,
+      //       content: content!,
+      //       date: widget.selectedDate,
+      //     ));
       Navigator.of(context).pop(); // 현재페이지 닫기 = 뒤로가기
     }
   }
