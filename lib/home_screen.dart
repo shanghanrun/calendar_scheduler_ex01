@@ -104,13 +104,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .doc(schedule.id)
                                 .delete();
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 8, left: 8, right: 8),
-                            child: ScheduleCard(
-                                startTime: schedule.startTime,
-                                endTime: schedule.endTime,
-                                content: schedule.content),
+                          child: GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                isDismissible: true,
+                                isScrollControlled: true,
+                                builder: (_) => ScheduleBottomSheet(
+                                    selectedDate: selectedDate),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 8, left: 8, right: 8),
+                              child: ScheduleCard(
+                                  startTime: schedule.startTime,
+                                  endTime: schedule.endTime,
+                                  content: schedule.content),
+                            ),
                           ),
                         );
                       });
