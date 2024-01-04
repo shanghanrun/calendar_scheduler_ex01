@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:255154096940:android:03072abb3dfe25c135ba89",
         "android_client_info": {
-          "package_name": "com.example.calendar_scheduler_ex01"
+          "package_name": "com.choco.calendar_scheduler_ex01"
         }
       },
       "oauth_client": [],
@@ -29,7 +29,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:255154096940:android:03bdae983fe30a5135ba89",
         "android_client_info": {
-          "package_name": "com.example.chat_ex01"
+          "package_name": "com.choco.chat_ex01"
         }
       },
       "oauth_client": [],
@@ -48,7 +48,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:255154096940:android:df2dd6d81aacf10e35ba89",
         "android_client_info": {
-          "package_name": "com.example.firebase_ex01"
+          "package_name": "com.choco.firebase_ex01"
         }
       },
       "oauth_client": [],
@@ -67,7 +67,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:255154096940:android:797b2385139ed46f35ba89",
         "android_client_info": {
-          "package_name": "com.example.firebase_ex02"
+          "package_name": "com.choco.firebase_ex02"
         }
       },
       "oauth_client": [],
@@ -86,7 +86,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:255154096940:android:743a12bddc263b7235ba89",
         "android_client_info": {
-          "package_name": "com.example.shoppingmall"
+          "package_name": "com.choco.shoppingmall"
         }
       },
       "oauth_client": [],
@@ -105,7 +105,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:255154096940:android:7b42e9e77b46fb7f35ba89",
         "android_client_info": {
-          "package_name": "com.example.use_firebase"
+          "package_name": "com.choco.use_firebase"
         }
       },
       "oauth_client": [],

@@ -69,7 +69,7 @@ class DefaultFirebaseOptions {
     projectId: 'choco-firebase-ex001',
     databaseURL: 'https://choco-firebase-ex001-default-rtdb.firebaseio.com',
     storageBucket: 'choco-firebase-ex001.appspot.com',
-    iosBundleId: 'com.example.calendarSchedulerEx01',
+    iosBundleId: 'com.choco.calendarSchedulerEx01',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -79,6 +79,6 @@ class DefaultFirebaseOptions {
     projectId: 'choco-firebase-ex001',
     databaseURL: 'https://choco-firebase-ex001-default-rtdb.firebaseio.com',
     storageBucket: 'choco-firebase-ex001.appspot.com',
-    iosBundleId: 'com.example.calendarSchedulerEx01.RunnerTests',
+    iosBundleId: 'com.choco.calendarSchedulerEx01.RunnerTests',
   );
 }
