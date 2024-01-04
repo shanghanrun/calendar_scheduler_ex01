@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     DateTime.now().month,
     DateTime.now().day,
   );
+  bool isNewSchedule = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
             context: context,
             isDismissible: true,
             isScrollControlled: true,
-            builder: (_) => ScheduleBottomSheet(selectedDate: selectedDate),
+            builder: (_) => ScheduleBottomSheet(
+              selectedDate: selectedDate,
+              isNewSchedule: isNewSchedule,
+              id: '',
+            ),
           );
         },
       ),
@@ -111,7 +116,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 isDismissible: true,
                                 isScrollControlled: true,
                                 builder: (_) => ScheduleBottomSheet(
-                                    selectedDate: selectedDate),
+                                  selectedDate: selectedDate,
+                                  isNewSchedule: !isNewSchedule,
+                                  id: schedule.id,
+                                ),
                               );
                             },
                             child: Padding(
