@@ -1,5 +1,3 @@
-
-
 import 'package:calendar_scheduler_ex01/component/main_calendar.dart';
 import 'package:calendar_scheduler_ex01/component/schedule_bottom_sheet.dart';
 import 'package:calendar_scheduler_ex01/component/schedule_card.dart';
@@ -51,8 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           MainCalendar(
             selectedDate: selectedDate,
-            onDaySelected: (selectedDate, focusedDate) =>
-                onDaySelected(selectedDate, focusedDate),
+            onDaySelected: (selectedDate, focusedDate) {
+              print('selectedDate: $selectedDate');
+              print('focusedDate: $focusedDate');
+              onDaySelected(selectedDate, focusedDate);
+            },
           ),
           const SizedBox(height: 8),
           StreamBuilder(
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   .collection('schedule')
                   .where('date',
                       isEqualTo:
-                          '${selectedDate.year}${selectedDate.month}${selectedDate.day}')
+                          '${selectedDate.year}${selectedDate.month.toString().padLeft(2, "0")}${selectedDate.day.toString().padLeft(2, "0")}')
                   .snapshots(),
               builder: (context, snapshot) {
                 return TodayBanner(
@@ -75,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     .collection('schedule')
                     .where('date',
                         isEqualTo:
-                            '${selectedDate.year}${selectedDate.month}${selectedDate.day}')
+                            '${selectedDate.year}${selectedDate.month.toString().padLeft(2, "0")}${selectedDate.day.toString().padLeft(2, "0")}')
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
